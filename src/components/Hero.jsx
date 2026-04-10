@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // ✅ ADD THIS
 import logo from "../assets/logo.png";
 import logoDark from "../assets/logo-dark.png";
 
 function Hero() {
   const [isDark, setIsDark] = useState(false);
 
-  // 🔥 detect dark mode properly
   useEffect(() => {
     const checkTheme = () => {
       setIsDark(document.documentElement.classList.contains("dark"));
@@ -14,7 +14,6 @@ function Hero() {
 
     checkTheme();
 
-    // observe class change (important for toggle)
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
@@ -52,7 +51,7 @@ function Hero() {
         </span>
       </motion.h1>
 
-      {/* 🔥 JEANS INDUSTRY WITH PREMIUM LINES */}
+      {/* JEANS INDUSTRY */}
       <motion.div
         className="mt-6 flex items-center justify-center gap-4"
         initial={{ opacity: 0 }}
@@ -78,15 +77,17 @@ function Hero() {
         THE INDUSTRIAL STANDARD
       </motion.p>
 
-      {/* CTA */}
-      <motion.button
-        className="mt-10 px-10 py-3 border border-black dark:border-white text-sm tracking-[4px] text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition duration-300 hover:scale-[1.03]"
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-      >
-        EXPLORE COLLECTION
-      </motion.button>
+      {/* CTA (FIXED) */}
+      <Link to="/products">
+        <motion.button
+          className="mt-10 px-10 py-3 border border-black dark:border-white text-sm tracking-[4px] text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition duration-300 hover:scale-[1.03]"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          EXPLORE COLLECTION
+        </motion.button>
+      </Link>
     </div>
   );
 }
