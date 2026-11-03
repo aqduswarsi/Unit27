@@ -23,24 +23,30 @@ function Hero() {
   return (
     <div
       id="home"
-      className="relative h-screen min-h-[600px] w-full bg-white dark:bg-black flex items-center overflow-hidden pt-20"
+      className="relative min-h-screen w-full bg-white flex flex-col justify-center overflow-hidden pt-20"
     >
-      {/* BACKGROUND IMAGE */}
+      {/* 🔥 BACKGROUND IMAGE (Mobile par dark overlay ke saath) */}
       <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, scale: 1.05 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 z-0 flex justify-end"
+        className="absolute inset-0 z-0"
       >
         <img
           src={heroImage}
           alt="UNIT 27 White Denim"
-          className="w-full h-full object-cover object-center md:object-right"
+          className="w-full h-full object-cover object-[70%_center] md:object-right"
         />
+
+        {/* 🔥 MOBILE OVERLAY: Mobile par white overlay taaki text saaf dikhe */}
+        <div className="absolute inset-0 bg-white/70 md:bg-transparent"></div>
+
+        {/* 🔥 DESKTOP GRADIENT: Desktop par left side se white gradient */}
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent w-full md:w-[65%]"></div>
       </motion.div>
 
-      {/* TEXT CONTENT - Left Side */}
-      <div className="relative z-10 w-full pl-4 md:pl-8 lg:pl-12">
+      {/* 🔥 TEXT CONTENT */}
+      <div className="relative z-10 w-full px-6 md:pl-8 lg:pl-12">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -50,15 +56,12 @@ function Hero() {
           {/* LOGO STYLE HEADING */}
           <motion.div
             variants={itemVariants}
-            className="mb-8 flex flex-col mt-4"
+            className="mb-6 md:mb-10 flex flex-col mt-4"
           >
-            {/* UNIT 27 (Size chhota kiya aur height stretch hataya) */}
             <div className="flex items-center gap-[6px] md:gap-[8px] mb-4">
               <h1 className="text-5xl md:text-7xl font-semibold text-black tracking-[-0.04em] leading-none">
                 UNIT
               </h1>
-
-              {/* 27 ka black box */}
               <div className="bg-black text-white px-2 md:px-3 py-1 md:py-1.5 flex items-center justify-center">
                 <span className="text-4xl md:text-6xl font-semibold tracking-[-0.02em] leading-none">
                   27
@@ -86,9 +89,12 @@ function Hero() {
           </motion.p>
 
           {/* Button */}
-          <motion.div variants={itemVariants} className="mb-12">
+          <motion.div
+            variants={itemVariants}
+            className="mb-10 md:mb-12 w-full sm:w-auto"
+          >
             <Link to="/products">
-              <button className="group flex items-center gap-4 bg-black text-white px-8 py-4 text-xs tracking-[2px] font-bold hover:bg-gray-800 transition-all duration-300">
+              <button className="group flex items-center justify-center md:justify-start gap-4 bg-black text-white px-8 py-4 text-xs tracking-[2px] font-bold hover:bg-gray-800 transition-all duration-300 w-full md:w-auto">
                 EXPLORE COLLECTION
                 <span className="group-hover:translate-x-1 transition-transform duration-300">
                   →
@@ -100,7 +106,7 @@ function Hero() {
           {/* Bottom Features */}
           <motion.div
             variants={itemVariants}
-            className="flex gap-8 pt-6 border-t border-gray-300 w-full max-w-[450px]"
+            className="grid grid-cols-3 gap-4 md:flex md:gap-8 pt-6 border-t border-gray-400/50 w-full max-w-[450px]"
           >
             <div className="flex flex-col items-start gap-1">
               <span className="text-lg">🧵</span>

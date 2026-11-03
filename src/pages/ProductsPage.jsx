@@ -8,7 +8,7 @@ import comfortFitImg from "../assets/comfort-fit.jpg";
 import straightFitImg from "../assets/straight-fit.jpg";
 import bootcutImg from "../assets/bootcut.jpg";
 import superWhiteImg from "../assets/super-white.jpg";
-import classicFitImg from "../assets/classic.jpg"; // Aapki file ka naam
+import classicFitImg from "../assets/classic.jpg";
 
 function ProductsPage() {
   const [selected, setSelected] = useState(null);
@@ -87,28 +87,40 @@ function ProductsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               onClick={() => setSelected(item)}
-              // Classy Card Design: Rounded corners, border, shadow
-              className="group relative h-[500px] overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500"
+              // Mobile par height auto, desktop par 500px
+              className="group relative overflow-hidden rounded-xl bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-gray-800 cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col h-auto md:h-[500px]"
             >
-              {/* Image Cover (Poora card bhar dega) */}
-              <img
-                src={item.img}
-                alt={item.name}
-                loading="lazy"
-                className="w-full h-full object-cover object-center transition-transform duration-[1.5s] ease-out group-hover:scale-110"
-              />
+              {/* Image Container */}
+              <div className="relative w-full flex-grow md:overflow-hidden bg-white dark:bg-black">
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  loading="lazy"
+                  // object-contain lagaya taaki mobile par poori image dikhe aur cut na ho
+                  className="w-full h-auto md:h-full md:absolute md:inset-0 object-contain md:object-cover object-top transition-transform duration-[1.5s] ease-out md:group-hover:scale-110"
+                />
+              </div>
 
-              {/* Smooth Hover Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-              {/* Title & Button (Slide up on hover) */}
-              <div className="absolute bottom-0 left-0 w-full p-8 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out flex flex-col items-start">
-                <h2 className="text-white text-2xl font-bold tracking-wide mb-4">
+              {/* 🔥 MOBILE TEXT (Always visible below image) */}
+              <div className="p-5 flex justify-between items-center bg-white dark:bg-[#111] border-t border-gray-100 dark:border-gray-800 md:hidden">
+                <h2 className="text-lg font-bold text-black dark:text-white">
                   {item.name}
                 </h2>
-                <button className="px-6 py-3 bg-white text-black text-xs tracking-[2px] font-bold uppercase hover:bg-gray-200 transition-colors rounded-md shadow-lg">
-                  Know More
-                </button>
+                <span className="text-xs tracking-[1px] font-bold text-gray-500 uppercase">
+                  View &rarr;
+                </span>
+              </div>
+
+              {/* 🔥 DESKTOP TEXT (Hover par slide up hoga) */}
+              <div className="hidden md:flex absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex-col justify-end p-8">
+                <div className="translate-y-8 group-hover:translate-y-0 transition-all duration-500 ease-out flex flex-col items-start">
+                  <h2 className="text-white text-2xl font-bold tracking-wide mb-4">
+                    {item.name}
+                  </h2>
+                  <button className="px-6 py-3 bg-white text-black text-xs tracking-[2px] font-bold uppercase hover:bg-gray-200 transition-colors rounded-md shadow-lg">
+                    Know More
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -188,11 +200,12 @@ function ProductsPage() {
                 ✕
               </button>
 
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg mb-6 overflow-hidden">
+              {/* Image Fix in Popup */}
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg mb-6 overflow-hidden flex items-center justify-center">
                 <img
                   src={selected.img}
                   alt={selected.name}
-                  className="w-full h-[300px] object-cover"
+                  className="w-full max-h-[350px] object-contain"
                 />
               </div>
 
@@ -208,7 +221,6 @@ function ProductsPage() {
                 Available for Bulk Orders & Wholesale
               </p>
 
-              {/* 🔥 BUTTON FIX: Link laga diya taaki contact page khule */}
               <Link
                 to="/contact"
                 onClick={() => setSelected(null)}
